@@ -2,7 +2,19 @@ name: Events Demo 1
 on:
   pull_request:
     types: [opened]
+    branches:
+      - main
+      - "dev-*" # Matches dev-1, dev-2, etc.
+      - "feature/*" # Matches feature/1, feature/2, etc.
   workflow_dispatch:
+  push:
+    branches:
+      - main
+      - "dev-*" # Matches dev-1, dev-2, etc.
+      - "feature/*" # Matches feature/1, feature/2, etc.
+    paths-ignore: # Ignore changes to specific paths
+      - ".github/workflows/*" # Ignore changes to workflows
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
