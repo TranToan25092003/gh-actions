@@ -31,10 +31,10 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: caching dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v3 # caching dependencies
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          path: ~/.npm # cache path
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }} # cache key
           restore-keys: |
             ${{ runner.os }}-build-
       - name: Install dependencies
