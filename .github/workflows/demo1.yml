@@ -39,6 +39,6 @@ jobs:
         with:
           name: dist-files # artifact name
       - name: output arifact files
-        run: ll
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
