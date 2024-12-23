@@ -1,0 +1,22 @@
+name: Matrix demo
+on: [push]
+jobs:
+  build:
+    strategy: # matrix strategy
+      matrix: # define the matrix
+        os: [ubuntu-latest, windows-latest] # matrix variable os
+        node: [14, 16]
+
+    runs-on: ${{matrix.os}} # use the matrix variable os
+
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node}} # use the matrix variable node
+      - name: install dependencies
+        run: npm ci
+      - name: build project
+        run: npm run build
