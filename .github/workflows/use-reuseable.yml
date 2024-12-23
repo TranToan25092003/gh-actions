@@ -19,8 +19,10 @@ jobs:
         run: npm ci
       - name: Lint code
         run: npm run lint
+
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -42,9 +44,11 @@ jobs:
         with:
           name: test-report
           path: test.json
+
   build:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -65,11 +69,22 @@ jobs:
         with:
           name: dist-files
           path: dist
+
   deploy:
     needs: build
-    uses: ./.github/workflows/reuseable.yml
-    with:
+    uses: ./.github/workflows/reuseable.yml # use the reuseable workflow
+    with: # pass the input to the reuseable workflow
       artifact-name: dist-files
+    # secrets:
+    #   token: ${{ secrets.TOKEN }}
+
+  output-reuse:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: print output
+        run: echo '${{ needs.deploy.outputs.reuse-output}}'
+
   report:
     needs: [deploy, lint]
     if: failure() # only run if tests fail

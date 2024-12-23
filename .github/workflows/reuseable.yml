@@ -1,15 +1,25 @@
 name: Reuseable demo
 on:
   workflow_call:
-    inputs:
+    inputs: # define the input
       artifact-name:
         description: artifact name to download
         required: true
         type: string
+    secrets: # define the secret
+      token:
+        required: false
+        description: token to deploy
+    outputs: # define the output
+      reuse-output:
+        description: output from reuseable workflow
+        value: ${{ jobs.deploy.outputs.report}} # define the output value
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      report: ${{ steps.report.outputs.output}} # define the output
     steps:
       - name: get code
         uses: actions/download-artifact@v3
@@ -19,3 +29,6 @@ jobs:
         run: ls
       - name: deploy
         run: echo 'deploying ...'
+      - name: report
+        id: report
+        run: echo 'ouput=success' >> $GITHUB_OUTPUT
