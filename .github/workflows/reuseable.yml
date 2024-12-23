@@ -4,7 +4,7 @@ on:
     inputs:
       artifact-name:
         description: artifact name to download
-        required: true
+        required: false
         type: string
         default: "dist"
 
