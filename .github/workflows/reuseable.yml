@@ -31,4 +31,4 @@ jobs:
         run: echo 'deploying ...'
       - name: report
         id: report
-        run: echo "ouput=success" >> $GITHUB_OUTPUT
+        run: echo "output=success" >> $GITHUB_OUTPUT
