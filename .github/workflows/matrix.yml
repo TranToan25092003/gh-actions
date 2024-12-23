@@ -10,10 +10,6 @@ jobs:
         include: # include the matrix variable
           - os: ubuntu-latest
             node: 20
-          - os: windows-10
-            node: 20
-          - os: windows-11
-            node: 20
         exclude:
           - os: windows-lastest
             node: 16
