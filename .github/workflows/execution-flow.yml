@@ -35,7 +35,7 @@ jobs:
       - name: Test code
         id: run-tests
         run: npm run test
-      - name: Upload test report
+      - name: Upload test report # only upload if tests fail
         if: failure() && steps.run-tests.outcome == 'failure'
         uses: actions/upload-artifact@v3
         with:
@@ -75,3 +75,12 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+  report:
+    needs: [deploy, lint]
+    if: failure() # only run if tests fail
+    runs-on: ubuntu-latest
+    steps:
+      - name: get report
+        run: |
+          echo 'getting report'
+          echo ${{github}}
