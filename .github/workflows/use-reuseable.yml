@@ -76,4 +76,4 @@ jobs:
       - name: get report
         run: |
           echo 'getting report'
-          echo ${{toJson(github)}}
+          echo '${{toJson(github)}}'
